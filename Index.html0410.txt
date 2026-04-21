@@ -1,0 +1,321 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CAP — Affiliate Push Page</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,300;1,400&family=Rajdhani:
+rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#000;color:#fff;font-family:'Lato',sans-serif}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 20px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(200,160,60,0.07) 0%,transparent 70%);pointer-events:none}
+.hero-eyebrow{font-family:'Rajdhani',sans-serif;font-size:0.55rem;letter-spacing:0.5em;text-transform:uppercase;color:rgba(200,160,60,0.5);margin-bottom:1.2rem}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,6vw,4.5rem);font-style:italic;line-height:1.1;margin-bottom:1rem;color:rgba(255,255,255,0.95)}
+.hero-title span{color:rgba(200,160,60,0.9)}
+.hero-sub{font-family:'Lato',sans-serif;font-size:0.85rem;color:rgba(255,255,255,0.35);max-width:480px;line-height:1.8;margin-bottom:2rem}
+.hero-cta{display:inline-block;background:rgba(200,160,60,0.1);border:1px solid rgba(200,160,60,0.4);color:rgba(200,160,60,0.9);font-family:'Rajdhani',sans-serif;font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;padding:14px 36px;cursor:pointer;transition:all 0.25s;text-decoration:none;margin-bottom:0.6rem}
+.hero-cta:hover{background:rgba(200,160,60,0.18);border-color:rgba(200,160,60,0.7)}
+.hero-cta-ghost{display:inline-block;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.3);font-family:'Rajdhani',sans-serif;font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;padding:12px 28px;cursor:pointer;transition:all 0.25s;text-decoration:none;margin-left:10px}
+.hero-cta-ghost:hover{border-color:rgba(255,255,255,0.3);color:rgba(255,255,255,0.7)}
+.hero-stats{display:flex;gap:40px;margin-top:2.5rem;flex-wrap:wrap;justify-content:center}
+.h-stat{text-align:center}
+.h-stat-val{font-family:'Cormorant Garamond',serif;font-size:2rem;color:rgba(200,160,60,0.85)}
+.h-stat-label{font-family:'Rajdhani',sans-serif;font-size:0.5rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.2);margin-top:2px}
+.scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);font-family:'Rajdhani',sans-serif;font-size:0.5rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.15);animation:bounce 2s infinite}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
+
+/* ── SECTION WRAPPER ── */
+.wrap{max-width:1200px;margin:0 auto;padding:60px 20px}
+.sec-label{font-family:'Rajdhani',sans-serif;font-size:0.55rem;letter-spacing:0.4em;text-transform:uppercase;color:rgba(200,160,60,0.45);margin-bottom:0.5rem}
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:2rem;font-style:italic;margin-bottom:0.3rem}
+.sec-rule{width:40px;height:1px;background:rgba(200,160,60,0.3);margin-bottom:1.8rem}
+
+/* ── TICKER ── */
+.ticker-wrap{background:rgba(200,160,60,0.06);border-top:1px solid rgba(200,160,60,0.12);border-bottom:1px solid rgba(200,160,60,0.12);padding:10px 0;overflow:hidden;white-space:nowrap}
+.ticker-inner{display:inline-block;animation:ticker 30s linear infinite}
+.ticker-item{display:inline-block;font-family:'Rajdhani',sans-serif;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(200,160,60,0.6);padding:0 40px}
+.ticker-item::after{content:'·';margin-left:40px;color:rgba(200,160,60,0.25)}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ── FRONTLOADED PRODUCTS ── */
+.featured-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-bottom:2rem}
+.feat-card{border:1px solid rgba(200,160,60,0.2);padding:20px;position:relative;transition:all 0.25s;background:rgba(200,160,60,0.02)}
+.feat-card:hover{border-color:rgba(200,160,60,0.5);background:rgba(200,160,60,0.04);transform:translateY(-2px)}
+.feat-badge{position:absolute;top:-1px;left:20px;background:rgba(200,160,60,0.9);color:#000;font-family:'Rajdhani',sans-serif;font-size:0.45rem;letter-spacing:0.25em;text-transform:uppercase;padding:3px 10px;font-weight:700}
+.feat-emoji{font-size:2.2rem;margin-bottom:10px;display:block}
+.feat-cat{font-family:'Rajdhani',sans-serif;font-size:0.5rem;letter-spacing:0.25em;text-transform:uppercase;color:rgba(200,160,60,0.45);margin-bottom:4px}
+.feat-name{font-family:'Rajdhani',sans-serif;font-size:0.9rem;font-weight:700;letter-spacing:0.05em;margin-bottom:2px}
+.feat-brand{font-size:0.65rem;color:rgba(255,255,255,0.3);margin-bottom:10px}
+.feat-price{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:rgba(200,160,60,0.85);margin-bottom:3px}
+.feat-comm{font-family:'Rajdhani',sans-serif;font-size:0.5rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.2);margin-bottom:14px}
+.feat-push{width:100%;background:rgba(200,160,60,0.12);border:1px solid rgba(200,160,60,0.35);color:rgba(200,160,60,0.9);font-family:'Rajdhani',sans-serif;font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;padding:10px;cursor:pointer;transition:all 0.2s;margin-bottom:6px}
+.feat-push:hover{background:rgba(200,160,60,0.22);border-color:rgba(200,160,60,0.7)}
+.feat-gen{width:100%;background:transparent;border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.3);font-family:'Rajdhani',sans-serif;font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;padding:8px;cursor:pointer;transition:all 0.2s}
+.feat-gen:hover{border-color:rgba(255,255,255,0.25);color:rgba(255,255,255,0.7)}
+
+/* ── CTA TEST PANEL ── */
+.cta-panel{border:1px solid rgba(254,44,85,0.2);padding:24px;background:rgba(254,44,85,0.02);margin-bottom:2rem}
+.cta-panel-title{font-family:'Rajdhani',sans-serif;font-size:0.6rem;letter-spacing:0.35em;text-transform:uppercase;color:rgba(254,44,85,0.6);margin-bottom:1.2rem}
+.cta-output{background:rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.07);padding:16px;font-family:'Lato',sans-serif;font-size:0.85rem;color:rgba(255,255,255,0.7);line-height:1.8;min-height:90px;white-space:pre-wrap;margin-bottom:12px;position:relative}
+.cta-typing::after{content:'|';animation:blink 0.7s infinite;color:rgba(254,44,85,0.8)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.cta-actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn-fire{background:rgba(254,44,85,0.12);border:1px solid rgba(254,44,85,0.35);color:#fe2c55;font-family:'Rajdhani',sans-serif;font-size:0.62rem;letter-spacing:0.25em;text-transform:uppercase;padding:10px 22px;cursor:pointer;transition:all 0.2s}
+.btn-fire:hover{background:rgba(254,44,85,0.22)}
+.btn-approve{background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);color:#22c55e;font-family:'Rajdhani',sans-serif;font-size:0.62rem;letter-spacing:0.25em;text-transform:uppercase;padding:10px 22px;cursor:pointer;transition:all 0.2s}
+.btn-approve:hover{background:rgba(34,197,94,0.2)}
+.btn-copy{background:transparent;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.35);font-family:'Rajdhani',sans-serif;font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;padding:10px 22px;cursor:pointer;transition:all 0.2s}
+.btn-copy:hover{border-color:rgba(255,255,255,0.3);color:rgba(255,255,255,0.7)}
+.status-badge{display:inline-flex;align-items:center;gap:6px;font-family:'Rajdhani',sans-serif;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;padding:6px 14px;border:1px solid rgba(34,197,94,0.3);color:#22c55e;background:rgba(34,197,94,0.05)}
+
+/* ── QR SECTION ── */
+.qr-section{background:rgba(250,204,21,0.02);border:1px solid rgba(250,204,21,0.12);padding:28px;margin-bottom:2rem}
+.qr-section-title{font-family:'Rajdhani',sans-serif;font-size:0.6rem;letter-spacing:0.35em;text-transform:uppercase;color:rgba(250,204,21,0.5);margin-bottom:1.2rem}
+.qr-scroll{display:flex;gap:12px;overflow-x:auto;padding-bottom:10px;scrollbar-width:thin;scrollbar-color:rgba(250,204,21,0.2) transparent}
+.qr-mini{flex-shrink:0;width:160px;border:1px solid rgba(250,204,21,0.2);padding:12px;text-align:center;background:rgba(250,204,21,0.02)}
+.qr-mini-box{width:80px;height:80px;background:rgba(250,204,21,0.06);border:1px solid rgba(250,204,21,0.15);margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-size:1.6rem}
+.qr-mini-token{font-family:'Rajdhani',sans-serif;font-size:0.55rem;letter-spacing:0.1em;color:#facc15;margin-bottom:4px;word-break:break-all}
+.qr-mini-copy{width:100%;background:transparent;border:1px solid rgba(250,204,21,0.2);color:rgba(250,204,21,0.6);font-family:'Rajdhani',sans-serif;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;padding:5px;cursor:pointer;transition:all 0.2s}
+.qr-mini-copy:hover{border-color:rgba(250,204,21,0.5);color:#facc15}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(12px);background:rgba(5,5,10,0.98);border:1px solid rgba(200,160,60,0.4);color:rgba(200,160,60,0.9);font-family:'Rajdhani',sans-serif;font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;padding:10px 22px;opacity:0;transition:all 0.3s;pointer-events:none;z-index:999;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ── PAGE QR FOOTER ── */
+.page-qr-footer{border-top:1px solid rgba(255,255,255,0.05);padding:40px 20px;text-align:center}
+.page-qr-box{display:inline-block;background:rgba(250,204,21,0.04);border:1px solid rgba(250,204,21,0.15);padding:20px 30px}
+.page-qr-img{width:100px;height:100px;background:rgba(250,204,21,0.08);border:1px solid rgba(250,204,21,0.2);margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:2.5rem}
+.page-qr-label{font-family:'Rajdhani',sans-serif;font-size:0.55rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.2)}
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<!-- ══════════════════════════════════════
+     HERO
+══════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-eyebrow">Create AI Profit · Golden Vault · Affiliate Push</div>
+  <h1 class="hero-title">The Products Are<br><span>Live. Push Now.</span></h1>
+  <p class="hero-sub">Every product in the Golden Vault is affiliate-ready. Members earn 5–25% commission on every sale. Bots are loaded. CTAs are tested. All you have to do is push.</p>
+  <div>
+    <a class="hero-cta" href="#products">Browse Products →</a>
+    <a class="hero-cta-ghost" href="#cta-test">Test CTA</a>
+  </div>
+  <div class="hero-stats">
+    <div class="h-stat"><div class="h-stat-val">70+</div><div class="h-stat-label">Products Live</div></div>
+    <div class="h-stat"><div class="h-stat-val">12</div><div class="h-stat-label">Categories</div></div>
+    <div class="h-stat"><div class="h-stat-val">25%</div><div class="h-stat-label">Max Commission</div></div>
+    <div class="h-stat"><div class="h-stat-val">20</div><div class="h-stat-label">Beta Links Ready</div></div>
+  </div>
+  <div class="scroll-hint">Scroll to explore ↓</div>
+</div>
+
+<!-- ── TICKER ── -->
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    <span class="ticker-item">Cartier Love Bracelet · 8% Comm</span>
+    <span class="ticker-item">Rolex Daytona · 5% Comm</span>
+    <span class="ticker-item">Creed Aventus · 12% Comm</span>
+    <span class="ticker-item">CAP AI Bot Suite · 20% Comm</span>
+    <span class="ticker-item">Airbnb Arbitrage Course · 25% Comm</span>
+    <span class="ticker-item">Apple MacBook Pro · 5% Comm</span>
+    <span class="ticker-item">Eight Sleep Pod 4 · 8% Comm</span>
+    <span class="ticker-item">1% Playground Membership · 15% Comm</span>
+    <span class="ticker-item">THE HAMMER Stock Options Course · 20% Comm</span>
+    <span class="ticker-item">Baccarat Rouge 540 · 12% Comm</span>
+    <span class="ticker-item">Cartier Love Bracelet · 8% Comm</span>
+    <span class="ticker-item">Rolex Daytona · 5% Comm</span>
+    <span class="ticker-item">Creed Aventus · 12% Comm</span>
+    <span class="ticker-item">CAP AI Bot Suite · 20% Comm</span>
+    <span class="ticker-item">Airbnb Arbitrage Course · 25% Comm</span>
+    <span class="ticker-item">Apple MacBook Pro · 5% Comm</span>
+    <span class="ticker-item">Eight Sleep Pod 4 · 8% Comm</span>
+    <span class="ticker-item">1% Playground Membership · 15% Comm</span>
+    <span class="ticker-item">THE HAMMER Stock Options Course · 20% Comm</span>
+    <span class="ticker-item">Baccarat Rouge 540 · 12% Comm</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     FRONTLOADED PRODUCTS
+══════════════════════════════════════ -->
+<div class="wrap" id="products">
+  <div class="sec-label">Golden Vault · Affiliate Push</div>
+  <div class="sec-title">Top Products — Push First</div>
+  <div class="sec-rule"></div>
+  <div class="featured-grid" id="feat-grid"></div>
+</div>
+
+<!-- ══════════════════════════════════════
+     CTA TEST PANEL
+══════════════════════════════════════ -->
+<div class="wrap" id="cta-test" style="padding-top:0">
+  <div class="sec-label">Bot CTA · Test &amp; Approve</div>
+  <div class="sec-title">CTA Test — One Fire</div>
+  <div class="sec-rule"></div>
+
+  <div class="cta-panel">
+    <div class="cta-panel-title">⚡ Live CTA Test — Aria Rabbit · Affiliate Push</div>
+    <div class="cta-output" id="cta-out">Click "Fire Test" to run the live CTA prompt...</div>
+    <div class="cta-actions" style="margin-bottom:12px">
+      <button class="btn-fire" onclick="fireCTA()">▶ Fire Test</button>
+      <button class="btn-approve" onclick="approveCTA()" id="approve-btn" disabled>✓ Approve &amp; Queue</button>
+      <button class="btn-copy" onclick="copyCTA()">⎘ Copy Post</button>
+    </div>
+    <div id="cta-status" style="display:none">
+      <div class="status-badge">● CTA Approved — Queued for Push</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     BETA QR CODES
+══════════════════════════════════════ -->
+<div class="wrap" style="padding-top:0">
+  <div class="sec-label">Beta Access · 1-Day Free Trial</div>
+  <div class="sec-title">Beta QR Links — Live</div>
+  <div class="sec-rule"></div>
+  <div class="qr-section">
+    <div class="qr-section-title">📱 Scroll to browse all 20 beta links — tap to copy</div>
+    <div class="qr-scroll" id="qr-scroll"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE QR FOOTER
+══════════════════════════════════════ -->
+<div class="page-qr-footer">
+  <div class="page-qr-box">
+    <div class="page-qr-img">📲</div>
+    <div class="page-qr-label">Scan to Enter the Vault</div>
+    <div style="font-family:'Lato',sans-serif;font-size:0.65rem;color:rgba(255,255,255,0.2);margin-top:6px">createaiprofit.com/vault</div>
+  </div>
+</div>
+
+<script>
+// ── TOAST ──
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500)}
+
+// ── FRONTLOADED PRODUCTS (hot/high-commission first) ──
+const products=[
+  {emoji:'🤖',cat:'Digital',name:'CAP AI Bot Suite',brand:'Create AI Profit',price:'$99/mo',comm:'20%',badge:'🔥 Top Earner'},
+  {emoji:'🔑',cat:'Digital',name:'1% Playground Membership',brand:'Create AI Profit',price:'$49/mo',comm:'15%',badge:'🔥 Hot'},
+  {emoji:'🏠',cat:'Real Estate',name:'Airbnb Arbitrage Course',brand:'CAP Concierge',price:'$297',comm:'25%',badge:'⭐ Top Comm'},
+  {emoji:'📊',cat:'Finance',name:'Stock Options Masterclass',brand:'THE HAMMER',price:'$497',comm:'20%',badge:'⭐ Top Comm'},
+  {emoji:'💰',cat:'Finance',name:'Passive Income Blueprint',brand:'CAP',price:'$147',comm:'25%',badge:'⭐ Top Comm'},
+  {emoji:'🎬',cat:'Digital',name:'Mini Series Access Pass',brand:'CAP Studios',price:'$29/mo',comm:'20%',badge:'New'},
+  {emoji:'🥃',cat:'Fragrance',name:'Aventus',brand:'Creed',price:'$550',comm:'12%',badge:'🔥 Hot'},
+  {emoji:'🌹',cat:'Fragrance',name:'Baccarat Rouge 540',brand:'Maison Francis',price:'$325',comm:'12%',badge:'New'},
+  {emoji:'💻',cat:'Tech',name:'MacBook Pro 14"',brand:'Apple',price:'$1,999',comm:'5%',badge:'🔥 Hot'},
+  {emoji:'🧘',cat:'Wellness',name:'Whoop 4.0 Band',brand:'Whoop',price:'$239',comm:'10%',badge:'New'},
+  {emoji:'🌙',cat:'Wellness',name:'Eight Sleep Pod 4',brand:'Eight Sleep',price:'$2,245',comm:'8%',badge:'New'},
+  {emoji:'💊',cat:'Wellness',name:'AG1 Athletic Greens',brand:'AG1',price:'$99/mo',comm:'15%',badge:'🔥 Hot'},
+  {emoji:'⌚',cat:'Watches',name:'Cosmograph Daytona',brand:'Rolex',price:'$29,500',comm:'5%',badge:'🔥 Hot'},
+  {emoji:'👜',cat:'Luxury',name:'Birkin 30',brand:'Hermès',price:'$12,000+',comm:'8%',badge:'🔥 Hot'},
+  {emoji:'📖',cat:'Books',name:'48 Laws of Power',brand:'Robert Greene',price:'$22',comm:'15%',badge:'🔥 Hot'},
+  {emoji:'📚',cat:'Books',name:'CAP Book Bundle (10 books)',brand:'Create AI Profit',price:'$49',comm:'20%',badge:'New'},
+  {emoji:'🏡',cat:'Real Estate',name:'STR Mastery Program',brand:'CAP Concierge',price:'$997',comm:'20%',badge:'New'},
+  {emoji:'✈️',cat:'Travel',name:'Private Jet Charter — 4hr',brand:'NetJets',price:'$8,500',comm:'5%',badge:'🔥 Hot'},
+];
+
+document.getElementById('feat-grid').innerHTML=products.map(p=>`
+  <div class="feat-card">
+    <div class="feat-badge">${p.badge}</div>
+    <span class="feat-emoji">${p.emoji}</span>
+    <div class="feat-cat">${p.cat}</div>
+    <div class="feat-name">${p.name}</div>
+    <div class="feat-brand">${p.brand}</div>
+    <div class="feat-price">${p.price}</div>
+    <div class="feat-comm">Commission: ${p.comm}</div>
+    <button class="feat-push" onclick="toast('Affiliate link copied: ${p.name} →')">Get Affiliate Link →</button>
+    <button class="feat-gen" onclick="genPost('${p.name}','${p.comm}')">Generate CTA Post</button>
+  </div>
+`).join('');
+
+function genPost(name,comm){
+  const posts=[
+    `💰 Just found something in the Golden Vault you NEED. ${name} — and members earn ${comm} commission on every sale. This is how the 1% moves. Link in bio → createaiprofit.com/vault`,
+    `🔑 The Vault is open. ${name} is live right now. ${comm} commission. No cap. Real money. Real products. CAP members eat first. → createaiprofit.com/vault`,
+    `⚡ ${name} just dropped in the Golden Vault. ${comm} back in your pocket on every push. This is affiliate marketing done right. #CreateAIProfit #GoldenVault`,
+  ];
+  const out=posts[Math.floor(Math.random()*posts.length)];
+  navigator.clipboard.writeText(out).catch(()=>{});
+  toast(`CTA post generated & copied: ${name}`);
+}
+
+// ── CTA TEST ──
+const ctaText=`[Aria Rabbit 🐇] 💎 Hey — real quick.
+
+The Golden Vault just dropped new products and the commissions are LIVE. We're talking 5% to 25% back on luxury goods, tech, real estate courses, finance tools, and more.
+
+If you're a CAP member — you already have access. If you're not — your 1-day beta link is waiting.
+
+This is the 1% playground. We don't just scroll. We earn.
+
+→ createaiprofit.com/vault
+
+#CreateAIProfit #GoldenVault #AffiliateMarketing #PassiveIncome #1PercentPlayground`;
+
+let ctaFired=false;
+function fireCTA(){
+  const el=document.getElementById('cta-out');
+  el.textContent='';
+  el.classList.add('cta-typing');
+  let i=0;
+  const interval=setInterval(()=>{
+    el.textContent=ctaText.slice(0,i);
+    i+=3;
+    if(i>ctaText.length){
+      el.textContent=ctaText;
+      el.classList.remove('cta-typing');
+      clearInterval(interval);
+      document.getElementById('approve-btn').disabled=false;
+      ctaFired=true;
+      toast('✓ CTA test complete — ready to approve');
+    }
+  },18);
+}
+
+function approveCTA(){
+  if(!ctaFired)return;
+  document.getElementById('cta-status').style.display='block';
+  document.getElementById('approve-btn').disabled=true;
+  toast('✓ CTA approved and queued for push');
+}
+
+function copyCTA(){
+  if(!ctaFired){toast('Fire the test first');return;}
+  navigator.clipboard.writeText(ctaText).then(()=>toast('CTA post copied ✓')).catch(()=>toast('Copy failed — select manually'));
+}
+
+// ── QR CODES ──
+const tokens=[
+  'CAP-0C75-55EC-028E','CAP-29C8-5A68-D696','CAP-43EE-6843-1604','CAP-9C30-DCD7-144B',
+  'CAP-A553-44ED-3274','CAP-B2F1-9E34-7A12','CAP-C8D4-2F67-E891','CAP-D5A9-1B23-F456',
+  'CAP-E3C7-8D90-A234','CAP-F1B6-4E78-C567','CAP-G9A2-3F45-D890','CAP-H7E1-6C23-B456',
+  'CAP-I5D8-9A12-E789','CAP-J3B4-7F56-C012','CAP-K1A9-2E34-F678','CAP-L8C6-5D90-A123',
+  'CAP-M6E3-1B78-D456','CAP-N4F1-8A23-E789','CAP-O2D9-4C56-B012','CAP-P0B7-6E89-A345'
+];
+
+document.getElementById('qr-scroll').innerHTML=tokens.map((t,i)=>`
+  <div class="qr-mini">
+    <div class="qr-mini-box">📱</div>
+    <div class="qr-mini-token">${t}</div>
+    <button class="qr-mini-copy" onclick="copyToken('https://createaiprofit.com/beta/${t}',this)">Copy</button>
+  </div>
+`).join('');
+
+function copyToken(url,btn){
+  navigator.clipboard.writeText(url).then(()=>{btn.textContent='✓';setTimeout(()=>btn.textContent='Copy',2000);}).catch(()=>{});
+  toast('Beta link copied ✓');
+}
+</script>
+</body>
+</html>
